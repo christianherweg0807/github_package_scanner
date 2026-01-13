@@ -1,12 +1,12 @@
 # Release 1.5.1 - Shai Hulud 2.0 Detection
 
-**Release Date:** November 24, 2024  
+**Release Date:** November 24, 2025
 **Release Type:** Critical Security Update  
 **Threat Level:** CRITICAL
 
 ## 🚨 Overview
 
-This release adds comprehensive detection for the **Shai Hulud 2.0** supply chain attack that compromised 533+ npm packages between November 21-24, 2024. This sophisticated campaign affected major development ecosystems including Zapier, AsyncAPI, Postman, PostHog, ENS Domains, and Voiceflow.
+This release adds comprehensive detection for the **Shai Hulud 2.0** supply chain attack that compromised 533+ npm packages between November 21-24, 2025. This sophisticated campaign affected major development ecosystems including Zapier, AsyncAPI, Postman, PostHog, ENS Domains, and Voiceflow.
 
 ## 🎯 Critical Changes
 
@@ -154,7 +154,7 @@ If you find any of these packages in your environment:
 - **Affected Repositories**: 25,000+
 - **Affected Users**: ~350
 - **Compromised Packages**: 533+
-- **Attack Duration**: November 21-24, 2024
+- **Attack Duration**: November 21-24, 2025
 - **Detection Window**: Ongoing
 
 ## 🔐 Security Notice

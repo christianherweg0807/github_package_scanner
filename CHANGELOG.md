@@ -139,7 +139,7 @@ All notable changes to this project will be documented in this file.
 - **Supported Languages**: 7 (added Java/Maven)
 - **Security Scan Types**: 4 (packages, workflows, secrets, SBOM)
 
-## [1.5.4] - 2024-11-26
+## [1.5.4] - 2025-11-26
 
 ### 🚨 Critical Security Update - Extended Shai Hulud 2.0 IOC Database
 
@@ -168,7 +168,7 @@ All notable changes to this project will be documented in this file.
 - **CSV Data**: shai-hulud-2-packages.csv (official Wiz Security IOC list)
 - **Research**: Wiz.io blog, Socket.dev analysis
 
-## [1.5.3] - 2024-11-24
+## [1.5.3] - 2025-11-24
 
 ### 🐛 Bug Fix
 
@@ -183,13 +183,13 @@ All notable changes to this project will be documented in this file.
 - IOCLoader logic unchanged: When `issues_dir=None`, automatically uses package's built-in issues directory
 - Affects all CLI operations that don't specify `--issues-dir` parameter
 
-## [1.5.2] - 2024-11-24
+## [1.5.2] - 2025-11-24
 
 ### 🚨 Critical Security Update - Shai Hulud 2.0 Complete IOC Database
 
 #### 📦 Comprehensive Package Coverage
 - **533 Compromised npm Packages**: Complete and verified IOC database from Socket.dev research
-- **All Major Ecosystems Covered**: Every compromised package from the November 2024 campaign
+- **All Major Ecosystems Covered**: Every compromised package from the November 2025 campaign
 - **Version-Specific Detection**: Precise version numbers for all affected packages
 
 #### 🎯 Enhanced Organizational Coverage
@@ -217,7 +217,7 @@ All notable changes to this project will be documented in this file.
 
 #### 📊 Impact Metrics
 - **25,000+ Affected Repositories**: Across ~350 unique GitHub users
-- **Attack Window**: November 21-24, 2024 (confirmed)
+- **Attack Window**: November 21-24, 2025 (confirmed)
 - **Continuous Discovery**: New repositories being created every 30 minutes during peak
 
 #### 📚 Source Attribution
@@ -225,12 +225,12 @@ All notable changes to this project will be documented in this file.
 - **Additional Sources**: Wiz.io, GitHub wiz-sec-public IOCs
 - **Research Links**: Complete documentation in shai_hulud_2.py
 
-## [1.5.1] - 2024-11-24
+## [1.5.1] - 2025-11-24
 
 ### 🚨 Critical Security Update - Shai Hulud 2.0 Worm Attack
 
 #### 🛡️ New IOC Database - Shai Hulud 2.0
-- **533+ Compromised Packages**: Complete coverage of the November 2024 Shai Hulud 2.0 campaign
+- **533+ Compromised Packages**: Complete coverage of the November 2025 Shai Hulud 2.0 campaign
 - **Major Ecosystem Impact**: Added detection for compromised packages from:
   - **Zapier** (16 packages): Platform automation and integration tools
   - **AsyncAPI** (36 packages): API specification and code generation tools
@@ -255,7 +255,7 @@ All notable changes to this project will be documented in this file.
 
 #### 📚 Documentation Updates
 - **Source Attribution**: Wiz.io, Socket.dev, and GitHub wiz-sec-public IOCs
-- **Attack Timeline**: November 21-24, 2024 compromise window documented
+- **Attack Timeline**: November 21-24, 2025 compromise window documented
 - **Impact Scope**: 25,000+ affected repositories across ~350 users
 
 ## [1.5.0] - 2025-09-26
@@ -344,7 +344,7 @@ All notable changes to this project will be documented in this file.
 - Verified IOC detection across both lockfile and SBOM sources
 - Maintains existing performance characteristics while adding comprehensive SBOM support
 
-## [1.1.6] - 2025-01-18
+## [1.1.6] - 2025-09-18
 
 ### 🚀 Major Performance Improvements
 - **Tree-First Mode**: Use Tree API by default for large team scans to avoid Code Search rate limits entirely
@@ -352,7 +352,7 @@ All notable changes to this project will be documented in this file.
 - **Optimized Large Team Scanning**: Dramatically faster scanning for teams with 50+ repositories
 - **Intelligent API Selection**: Automatically choose the most efficient API for the scan type
 
-## [1.1.5] - 2025-01-18
+## [1.1.5] - 2025-09-18
 
 ### 🚀 Performance Improvements
 - **Smart Code Search Fallback**: Automatically fallback to Tree API when Code Search rate limits are hit
@@ -360,7 +360,7 @@ All notable changes to this project will be documented in this file.
 - **Improved Large Team Scanning**: Better handling of teams with many repositories (100+ repos)
 - **Smart Rate Limiter**: New intelligent rate limiting system optimized for large scans
 
-## [1.1.4] - 2025-01-18
+## [1.1.4] - 2025-09-18
 
 ### 🔧 Fixes
 - **Repository Links**: Fixed broken GitHub repository URLs in pyproject.toml and documentation
@@ -368,7 +368,7 @@ All notable changes to this project will be documented in this file.
 - **Copyright Year**: Updated copyright year to 2025 in LICENSE file
 - **Current Status**: Updated "Current as of" date to January 2025 in README
 
-## [1.1.3] - 2025-01-18
+## [1.1.3] - 2025-09-18
 
 ### 🔒 Security Improvements
 - **Archived Repository Filtering**: Archived repositories are now consistently excluded from all scan types

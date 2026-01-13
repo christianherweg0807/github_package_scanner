@@ -1,5 +1,5 @@
 """
-Shai Hulud Worm Supply Chain Attack - December 2024
+Shai Hulud Worm Supply Chain Attack - September 2025
 
 This file contains IOC definitions for the Shai Hulud worm attack that infected 500+ npm packages.
 The attack used a sophisticated worm payload that could spread across the npm ecosystem.
@@ -11,7 +11,7 @@ Threat Level: CRITICAL
 
 IOC_PACKAGES = {
     # -------------------
-    # New packages from Securelist report (December 2024)
+    # New packages from Securelist report (September 2025)
     # -------------------
     "@basic-ui-components-stc/basic-ui-components": {"1.0.5"},
     "@rxap/ngx-bootstrap": {"19.0.3", "19.0.4"},
