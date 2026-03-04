@@ -563,7 +563,7 @@ class TestBatchMetrics:
         # Mock average batch size calculation
         batch_coordinator._calculate_average_batch_size = MagicMock(return_value=12.5)
         
-        metrics = await batch_coordinator.get_batch_metrics()
+        metrics = batch_coordinator.get_batch_metrics()
         
         assert isinstance(metrics, BatchMetrics)
         assert metrics.total_requests >= 100
@@ -618,7 +618,7 @@ class TestStrategyAdaptation:
             successful_requests=70,  # 70% success rate
             parallel_efficiency=0.5
         )
-        batch_coordinator.get_batch_metrics = AsyncMock(return_value=poor_metrics)
+        batch_coordinator.get_batch_metrics = MagicMock(return_value=poor_metrics)
         
         await batch_coordinator._adapt_strategy_from_results({})
         
@@ -636,7 +636,7 @@ class TestStrategyAdaptation:
             successful_requests=98,  # 98% success rate
             parallel_efficiency=0.9
         )
-        batch_coordinator.get_batch_metrics = AsyncMock(return_value=excellent_metrics)
+        batch_coordinator.get_batch_metrics = MagicMock(return_value=excellent_metrics)
         
         await batch_coordinator._adapt_strategy_from_results({})
         
@@ -897,7 +897,7 @@ class TestUnifiedSystemIntegration:
         }
         
         # Mock component metrics
-        batch_coordinator.get_batch_metrics = AsyncMock(return_value=BatchMetrics(
+        batch_coordinator.get_batch_metrics = MagicMock(return_value=BatchMetrics(
             total_requests=100,
             successful_requests=95
         ))
@@ -1009,10 +1009,6 @@ class TestInternalMethods:
         
         formatted = await batch_coordinator._format_file_batch_results(results)
         
-        assert 'files' in formatted
-        assert 'metadata' in formatted
-        assert 'success.txt' in formatted['files']
-        assert 'error.txt' in formatted['files']
-        assert formatted['metadata']['total_files'] == 2
-        assert formatted['metadata']['successful_files'] == 1
-        assert formatted['metadata']['cached_files'] == 1
+        assert 'success.txt' in formatted
+        assert 'error.txt' not in formatted
+        assert isinstance(formatted['success.txt'], FileContent)

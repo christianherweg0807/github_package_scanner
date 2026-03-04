@@ -79,6 +79,31 @@ class BatchCoordinator:
         self.current_strategy = self.config.default_strategy
         self.strategy_adaptation_enabled = True
         
+    def _report_progress(
+        self,
+        completed: int,
+        total: int,
+        current_batch_size: int,
+        eta_seconds: Optional[float]
+    ) -> None:
+        """Report progress for batch operations.
+        
+        Args:
+            completed: Number of completed items
+            total: Total number of items
+            current_batch_size: Size of the current batch
+            eta_seconds: Estimated time remaining in seconds
+        """
+        if total > 0:
+            percentage = (completed / total) * 100
+            logger.debug(
+                f"Batch progress: {completed}/{total} ({percentage:.1f}%) "
+                f"batch_size={current_batch_size} eta={eta_seconds:.1f}s"
+                if eta_seconds is not None
+                else f"Batch progress: {completed}/{total} ({percentage:.1f}%) "
+                     f"batch_size={current_batch_size}"
+            )
+
     async def start(self) -> None:
         """Start the batch coordinator and all sub-components."""
         try:
@@ -299,7 +324,8 @@ class BatchCoordinator:
         self,
         repo: Repository,
         file_paths: List[str],
-        priority_files: Optional[List[str]] = None
+        priority_files: Optional[List[str]] = None,
+        strategy: Optional[BatchStrategy] = None
     ) -> Dict[str, Any]:
         """Process multiple files with intelligent batching.
         
@@ -307,9 +333,10 @@ class BatchCoordinator:
             repo: Repository containing the files
             file_paths: List of file paths to process
             priority_files: Optional list of high-priority files
+            strategy: Optional batching strategy override (currently informational)
             
         Returns:
-            Dictionary containing file contents and processing metadata
+            Dictionary mapping file paths to their content/result
         """
         if not file_paths:
             return {}
@@ -347,6 +374,14 @@ class BatchCoordinator:
             
             await self._complete_operation(operation_id, success=True)
             
+            # Update global metrics
+            self.global_metrics.total_requests += len(file_paths)
+            self.global_metrics.successful_requests += len(formatted_results)
+            self.global_metrics.failed_requests += len(file_paths) - len(formatted_results)
+            
+            # Report final progress
+            self._report_progress(len(file_paths), len(file_paths), len(file_paths), 0.0)
+            
             logger.info(
                 f"Completed file batch processing: {len(cached_results)} cached, "
                 f"{len(api_results)} from API"
@@ -358,7 +393,7 @@ class BatchCoordinator:
             logger.error(f"File batch processing failed: {e}")
             raise BatchProcessingError(f"File batch processing failed: {e}") from e
     
-    async def get_batch_metrics(self) -> BatchMetrics:
+    def get_batch_metrics(self) -> BatchMetrics:
         """Get comprehensive batch processing metrics.
         
         Returns:
@@ -673,7 +708,7 @@ class BatchCoordinator:
             Comprehensive workflow metrics
         """
         # Get metrics from all components
-        batch_metrics = await self.get_batch_metrics()
+        batch_metrics = self.get_batch_metrics()
         coordination_stats = self.get_coordination_statistics()
         
         # Calculate workflow-specific metrics
@@ -1741,10 +1776,13 @@ class BatchCoordinator:
         
         # Process in optimal-sized batches
         results = []
+        total = len(requests)
         for i in range(0, len(requests), optimal_batch_size):
             batch = requests[i:i + optimal_batch_size]
             batch_results = await self.parallel_processor.process_batch_parallel(batch)
             results.extend(batch_results)
+            completed = min(i + optimal_batch_size, total)
+            self._report_progress(completed, total, len(batch), None)
         
         return results
     
@@ -1755,30 +1793,14 @@ class BatchCoordinator:
             results: List of batch results to format
             
         Returns:
-            Formatted results dictionary
+            Flat dictionary mapping file paths to their content (successful files only).
+            Files that failed are excluded from the result.
         """
-        formatted = {
-            'files': {},
-            'metadata': {
-                'total_files': len(results),
-                'successful_files': sum(1 for r in results if r.success),
-                'cached_files': sum(1 for r in results if r.from_cache),
-                'processing_time': sum(r.processing_time for r in results)
-            }
-        }
+        formatted = {}
         
         for result in results:
             if result.success and result.content:
-                formatted['files'][result.request.file_path] = {
-                    'content': result.content,
-                    'from_cache': result.from_cache,
-                    'processing_time': result.processing_time
-                }
-            elif result.error:
-                formatted['files'][result.request.file_path] = {
-                    'error': str(result.error),
-                    'processing_time': result.processing_time
-                }
+                formatted[result.request.file_path] = result.content
         
         return formatted
     
@@ -1791,7 +1813,7 @@ class BatchCoordinator:
         try:
             # Analyze results and update strategy if needed
             # This is a simplified implementation
-            current_metrics = await self.get_batch_metrics()
+            current_metrics = self.get_batch_metrics()
             
             if current_metrics.success_rate < 80:
                 # Poor success rate - switch to more conservative strategy

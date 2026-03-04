@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "github-ioc-scanner"
-version = "1.7.2"
+version = "1.8.0"
 description = "Scan GitHub repositories for Indicators of Compromise (IOCs) in package dependencies across multiple languages"
 authors = [{name = "GitHub IOC Scanner Contributors", email = "security@example.com"}]
 license = {text = "MIT"}

@@ -2,7 +2,35 @@
 
 All notable changes to this project will be documented in this file.
 
-## [1.7.0] - 2025-11-28
+## [1.8.0] - 2026-03-04
+
+### New Features
+
+#### Sandworm Mode IOC Detection
+- Added `sandworm_mode.py`: New IOC definitions for the Sandworm threat actor's supply chain attack patterns
+- Detects malicious packages associated with Sandworm/APT44 campaigns
+
+#### Codebase Restructuring
+- Moved issue definitions into `src/github_ioc_scanner/issues/` folder for better organization
+- Added `npmjs_help.py` with IOC patterns for npm-based attack vectors
+- Updated `shai_hulud.py` with latest threat intelligence
+
+### Improvements
+
+#### Batch Processing
+- `BatchCoordinator.get_batch_metrics()` converted from `async` to synchronous for simpler consumption
+- `process_files_batch()` now accepts an optional `strategy` parameter
+- `_format_file_batch_results()` returns a flat `{file_path: FileContent}` dict (successful files only)
+- Added `_report_progress()` method to `BatchCoordinator` for real-time batch progress reporting
+- Improved metrics tracking: `global_metrics` is now updated after each `process_files_batch()` call
+
+### Bug Fixes
+
+- Fixed `BatchCoordinator` test suite: corrected mock signatures for `get_file_content_async`
+- Fixed `BatchCoordinator` integration tests: corrected `BatchCoordinator` instantiation argument order
+- Fixed `test_batch_workflow_error_recovery_scenarios`: now correctly tests partial-failure scenarios via `get_file_content_async` mock
+
+
 
 ### 🚀 Performance Improvements
 
