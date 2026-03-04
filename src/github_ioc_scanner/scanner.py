@@ -571,7 +571,7 @@ class GitHubIOCScanner:
                 )
                 
                 # Get batch metrics for additional insights
-                batch_metrics = await self.batch_coordinator.get_batch_metrics()
+                batch_metrics = self.batch_coordinator.get_batch_metrics()
                 logger.info(f"Batch scan completed: {len(all_matches)} matches, "
                           f"{batch_metrics.cache_hit_rate:.1f}% cache hit rate, "
                           f"{batch_metrics.parallel_efficiency:.2f} parallel efficiency")
@@ -1973,7 +1973,7 @@ class GitHubIOCScanner:
                 successful_repos = len([repo for repo, matches in batch_results['processing_results'].items() if matches])
                 
                 # Get comprehensive metrics
-                batch_metrics = await self.batch_coordinator.get_batch_metrics()
+                batch_metrics = self.batch_coordinator.get_batch_metrics()
                 
                 # Log comprehensive performance information
                 log_performance(
