@@ -1,6 +1,76 @@
+"""
+Shai Hulud Worm Supply Chain Attack - September 2025
+
+This file contains IOC definitions for the Shai Hulud worm attack that infected 500+ npm packages.
+The attack used a sophisticated worm payload that could spread across the npm ecosystem.
+
+Source: https://securelist.com/shai-hulud-worm-infects-500-npm-packages-in-a-supply-chain-attack/117547/
+Attack Type: Supply chain attack with worm payload
+Threat Level: CRITICAL
+"""
+
 IOC_PACKAGES = {
     # -------------------
-    # Name-only Treffer (keine Versionen im Advisory genannt)
+    # New packages from Securelist report (September 2025)
+    # -------------------
+    "@basic-ui-components-stc/basic-ui-components": {"1.0.5"},
+    "@rxap/ngx-bootstrap": {"19.0.3", "19.0.4"},
+    "@strong-energetic/test-banned-file": {"1.0.1"},
+    "@teriyakibomb/ember-velcro": {"2.2.1"},
+    "airchief": {"0.3.1"},
+    "airpilot": {"0.8.8"},
+    "another-shai": {"1.0.1"},
+    "browser-webdriver-downloader": {"3.0.8"},
+    "capacitor-notificationhandler": {"0.0.2", "0.0.3"},
+    "capacitor-plugin-healthapp": {"0.0.2", "0.0.3"},
+    "capacitor-plugin-ihealth": {"1.1.8", "1.1.9"},
+    "capacitor-plugin-vonage": {"1.0.2", "1.0.3"},
+    "capacitorandroidpermissions": {"0.0.4", "0.0.5"},
+    "config-cordova": {"0.8.5"},
+    "cordova-plugin-voxeet2": {"1.0.24"},
+    "cordova-voxeet": {"1.0.32"},
+    "create-hest-app": {"0.1.9"},
+    "db-evo": {"1.1.4", "1.1.5"},
+    "devextreme-angular-rpk": {"21.2.8"},
+    "devextreme-rpk": {"21.2.8"},
+    "ember-browser-services": {"5.0.2", "5.0.3"},
+    "ember-headless-form": {"1.1.2", "1.1.3"},
+    "ember-headless-form-yup": {"1.0.1"},
+    "ember-headless-table": {"2.1.5", "2.1.6"},
+    "ember-url-hash-polyfill": {"1.0.12", "1.0.13"},
+    "ember-velcro": {"2.2.1", "2.2.2"},
+    "eslint-config-crowdstrike": {"11.0.2", "11.0.3"},
+    "eslint-config-crowdstrike-node": {"4.0.3", "4.0.4"},
+    "globalize-rpk": {"1.7.4"},
+    "html-to-base64-image": {"1.0.2"},
+    "jumpgate": {"0.0.2"},
+    "mcfly-semantic-release": {"1.3.1"},
+    "mcp-knowledge-base": {"0.0.2"},
+    "mcp-knowledge-graph": {"1.2.1"},
+    "mobioffice-cli": {"1.0.3"},
+    "monorepo-next": {"13.0.1", "13.0.2"},
+    "mstate-angular": {"0.4.4"},
+    "mstate-cli": {"0.4.7"},
+    "mstate-dev-react": {"1.1.1"},
+    "mstate-react": {"1.6.5"},
+    "ng-imports-checker": {"0.0.9", "0.0.10"},
+    "ngx-ws": {"1.1.5", "1.1.6"},
+    "pm2-gelf-json": {"1.0.4", "1.0.5"},
+    "printjs-rpk": {"1.6.1"},
+    "remark-preset-lint-crowdstrike": {"4.0.1", "4.0.2"},
+    "tbssnch": {"1.0.2"},
+    "teselagen-interval-tree": {"1.1.2"},
+    "thangved-react-grid": {"1.0.3"},
+    "ts-imports": {"1.0.1", "1.0.2"},
+    "tvi-cli": {"0.1.5"},
+    "verror-extra": {"6.0.1"},
+    "voip-callkit": {"1.0.2", "1.0.3"},
+    "wdio-web-reporter": {"0.1.3"},
+    "yargs-help-output": {"5.0.3"},
+    "yoo-styles": {"6.0.326"},
+
+    # -------------------
+    # Previously identified packages (keeping existing entries)
     # -------------------
     "@ahmedhfarag/ngx-perfect-scrollbar": None,
     "@ahmedhfarag/ngx-virtual-scroller": None,
@@ -109,5 +179,13 @@ IOC_PACKAGES = {
     "ts-gaussian": {"3.0.6"},
     "ve-bamreader": {"0.2.6"},
     "ve-editor": {"1.0.1"},
+
+    # -------------------
+    # Maven packages (Shai-Hulud v2 - November 2025)
+    # Source: https://thehackernews.com/2025/11/shai-hulud-v2-campaign-spreads-from-npm.html
+    # Note: Maven coordinates use groupId:artifactId format
+    # The mvnpm process automatically mirrors npm packages to Maven Central
+    # -------------------
+    "org.mvnpm:posthog-node": {"4.18.1"},  # First Maven package identified with Shai-Hulud payload
 }
 
